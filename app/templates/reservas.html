@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Mis Reservas Deportivas{% endblock %}
+
+{% block content %}
+<h1>Mis Inscripciones Pendientes</h1>
+
+{% if actividades %}
+    <ul>
+        {% for act in actividades %}
+            <li style="margin-bottom: 10px;">
+                <strong>{{ act.nombre }}</strong> ({{ act.deporte }}) — {{ "%.2f"|format(act.cuota) }} €/mes
+                <!-- TODO (Bloque 3 - Ejercicio 3.3A): Formulario POST para cancelar esta actividad individual -->
+            </li>
+        {% endfor %}
+    </ul>
+
+    <div style="background: #eef4f8; padding: 15px; border-radius: 6px; margin-top: 15px;">
+        <p>Importe acumulado: <strong>{{ "%.2f"|format(total_sin_descuento) }} €</strong></p>
+        {% if descuento_aplicado %}
+            <p style="color: green;">¡Descuento Multideporte (3 actividades - 20 %) aplicado!</p>
+        {% endif %}
+        <h3>Cuota Total a Pagar: {{ "%.2f"|format(total_final) }} €/mes</h3>
+
+        <!-- TODO (Bloque 3 - Ejercicio 3.3B): Formulario POST apuntando a public.confirmar_reservas -->
+        <form action="{{ url_for('public.confirmar_reservas') }}" method="post">
+            <button type="submit" class="btn btn-success">Confirmar Inscripciones y Descontar Plazas</button>
+        </form>
+    </div>
+{% else %}
+    <p>No tienes ninguna actividad seleccionada en tu sesión actual.</p>
+{% endif %}
+
+<p style="margin-top: 20px;">
+    <a href="{{ url_for('public.mostrar_actividades') }}">&larr; Volver a las actividades</a>
+</p>
+{% endblock %}

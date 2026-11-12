@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Detalle: {{ actividad.nombre }}{% endblock %}
+
+{% block content %}
+<h2>{{ actividad.nombre }}</h2>
+<p><strong>ID de Actividad:</strong> {{ actividad.id }}</p>
+<p><strong>Modalidad Deportiva:</strong> {{ actividad.deporte }}</p>
+<p><strong>Cuota mensual:</strong> {{ "%.2f"|format(actividad.cuota) }} €</p>
+<p><strong>Plazas disponibles:</strong> {{ actividad.plazas_libres }}</p>
+
+{% if actividad.imagen %}
+    <p><img src="{{ url_for('static', filename='img/uploads/' + actividad.imagen) }}" width="220" alt="{{ actividad.nombre }}"></p>
+{% endif %}
+
+<p><a href="{{ url_for('public.mostrar_actividades') }}">&larr; Volver al listado de actividades</a></p>
+{% endblock %}

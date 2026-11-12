@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Carné de Socio - DAW-Fit{% endblock %}
+
+{% block content %}
+<h2>Carné del Club</h2>
+<div style="border: 1px solid #ccc; padding: 15px; border-radius: 6px; max-width: 420px; margin-bottom: 25px;">
+    <p><strong>Nº Socio/ID:</strong> {{ current_user.id }}</p>
+    <p><strong>Usuario:</strong> {{ current_user.username }}</p>
+    <p><strong>Correo:</strong> {{ current_user.email }}</p>
+    <p><strong>Edad:</strong> {{ current_user.edad }} años</p>
+    <p><strong>Categoría:</strong> {{ current_user.rol | upper }}</p>
+</div>
+
+<h3>Cambiar mi Contraseña</h3>
+<!-- TODO (Bloque 4 - Ejercicio 4.2): Renderizar los campos de CambiarPasswordForm y sus errores -->
+<form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    {{ form.submit(class="btn btn-primary") }}
+</form>
+{% endblock %}

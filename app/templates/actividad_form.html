@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<h2>{{ titulo }}</h2>
+
+<!-- Nota: Recuerda verificar los atributos necesarios para subida de ficheros -->
+<form action="" method="post" enctype="multipart/form-data" novalidate>
+    {{ form.hidden_tag() }}
+
+    <div style="margin-bottom: 12px;">
+        {{ form.nombre.label }}<br>
+        {{ form.nombre(size=40) }}<br>
+        {% for error in form.nombre.errors %}
+            <span style="color: red;">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+    <div style="margin-bottom: 12px;">
+        {{ form.deporte.label }}<br>
+        {{ form.deporte(size=30) }}<br>
+        {% for error in form.deporte.errors %}
+            <span style="color: red;">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+    <div style="margin-bottom: 12px;">
+        {{ form.cuota.label }}<br>
+        {{ form.cuota() }}<br>
+        {% for error in form.cuota.errors %}
+            <span style="color: red;">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+    <div style="margin-bottom: 12px;">
+        {{ form.plazas_libres.label }}<br>
+        {{ form.plazas_libres() }}<br>
+        {% for error in form.plazas_libres.errors %}
+            <span style="color: red;">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+    <div style="margin-bottom: 15px;">
+        {{ form.archivo_imagen.label }}<br>
+        {% if actividad and actividad.imagen %}
+            <small>Cartel actual: {{ actividad.imagen }}</small><br>
+        {% endif %}
+        {{ form.archivo_imagen() }}<br>
+        {% for error in form.archivo_imagen.errors %}
+            <span style="color: red;">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+    <div>
+        {{ form.submit(class="btn btn-primary") }}
+        <a href="{{ url_for('public.mostrar_actividades') }}" style="margin-left: 10px;">Cancelar</a>
+    </div>
+</form>
+{% endblock %}
