@@ -24,9 +24,6 @@ def create_app(config_class=Config):
     def acceso_prohibido(e):
         return render_template("403.html"), 403
 
-    # TODO (Bloque 1 - Ejercicio 1.3): Registrar el manejador global para el error 404
-    # y renderizar la plantilla '404.html' devolviendo el código de estado 404.
-
     with app.app_context():
         db.create_all()
 

@@ -49,11 +49,6 @@ def limpiar_preferencia():
     return redirect(url_for("public.mostrar_actividades"))
 
 
-# =====================================================================
-# BLOQUE 3: GESTIÓN DE RESERVAS EN SESIÓN
-# =====================================================================
-
-
 @public_bp.route("/reservas/apuntar/<int:act_id>", methods=["POST"])
 @login_required
 def apuntar_actividad(act_id):
