@@ -15,17 +15,13 @@
       "settings": {
         // Le decimos a VS Code dónde está el Python que instaló uv
         "python.defaultInterpreterPath": "/app/.venv/bin/python",
-        "editor.formatOnSave": true,
-        "files.associations": {
-          "*.html": "jinja-html"
-        }
+        "editor.formatOnSave": true
       },
       "extensions": [
-        "ms-python.python", // Soporte base de Python
-        "ms-python.vscode-pylance", // Autocompletado inteligente
-        "charliermarsh.ruff", // El linter/formateador más rápido actual, de los creadores de uv
-        "Xubylele.jinja2-html-enhancer",
-        "WaseemAkram.jinja-snippets-flask"
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "charliermarsh.ruff",
+        "wholroyd.jinja"
       ]
     }
   },
