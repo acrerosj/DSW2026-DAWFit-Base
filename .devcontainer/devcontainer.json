@@ -17,7 +17,7 @@
         "python.defaultInterpreterPath": "/app/.venv/bin/python",
         "editor.formatOnSave": true,
         "files.associations": {
-            "*.html": "jinja-html"
+          "*.html": "jinja-html"
         }
       },
       "extensions": [
@@ -31,5 +31,8 @@
   },
   "remoteUser": "vscode",
   "postCreateCommand": "git config --global --add safe.directory ${containerWorkspaceFolder} && uv sync",
-  "postStartCommand": "uv run flask --app run:app run --host 0.0.0.0 --port 5000 --debug"
+  "postStartCommand": "uv run flask --app run:app run --host 0.0.0.0 --port 5000 --debug",
+  "mounts": [
+    "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached,readonly"
+  ]
 }
