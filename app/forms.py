@@ -12,6 +12,7 @@ from wtforms.validators import (
     DataRequired,
     Email,
     EqualTo,
+    InputRequired,
     Length,
     NumberRange,
     ValidationError,
@@ -54,12 +55,46 @@ class ActividadForm(FlaskForm):
             Length(min=3, max=50, message="Entre 3 y 50 caracteres."),
         ],
     )
+    cuota = FloatField(
+        "Cuota Mensual",
+        validators={
+            DataRequired(message="La cuota es obligatoria (5€ a 150€)."),
+            NumberRange(min=5.0, max=150.0, message="Entre 5€ a 150€."),
+        },
+    )
 
+    plazas_libres = IntegerField(
+        "Plazas Libres",
+        default=10,
+        validators=[
+            InputRequired(message="Indica las plazas libres."),
+            NumberRange(min=0, message="Las plazas libres no pueden ser negativas."),
+        ],
+    )
+
+    archivo_imagen = FileField(
+        "Cartel de la Actividad (JPG, PNG)",
+        validators=[
+            FileAllowed(
+                ["jpg", "jpeg", "png"], message="Solo se permite imagenes JPG o PNG."
+            )
+        ],
+    )
     cuota = FloatField("Cuota Mensual (€)", validators=[DataRequired()])
     plazas_libres = IntegerField("Plazas Libres", default=10)
     archivo_imagen = FileField("Cartel de la Actividad (JPG, PNG)")
 
     submit = SubmitField("Guardar Actividad")
+
+    def __init__(self, *args, nombre_original=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.nombre_original = nombre_original
+
+    def validate_nombre(self, field):
+        if field.data == self.nombre_original:
+            return
+        if Actividad.query.filter_by(nombre=field.data).first():
+            raise ValidationError("Ya existe una actividad con ese nombre.")
 
 
 class RegistroForm(FlaskForm):

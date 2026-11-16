@@ -24,6 +24,14 @@ def crear_actividad():
     )
 
 
+@admin_bp.before_request
+def proteger_zona_admin():
+    if not current_user.is_authenticated:
+        return login_manager.unauthorized()
+    if not current_user.es_monitor:
+        abort(403)
+
+
 @admin_bp.route("/actividad/<int:act_id>/editar", methods=["GET", "POST"])
 def editar_actividad(act_id):
     actividad = db.get_or_404(Actividad, act_id)
